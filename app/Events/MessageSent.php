@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Conversation;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -12,27 +13,15 @@ use Illuminate\Queue\SerializesModels;
 
 class MessageSent implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    public $message;
 
-    public $chat;
-
-    public function __construct(Chat $chat)
+    public function __construct(Conversation $message)
     {
-        $this->chat = $chat->load('sender');
+        $this->message = $message;
     }
 
     public function broadcastOn()
     {
-        return new PrivateChannel('chat.' . $this->chat->receiver_id);
-    }
-
-    public function broadcastWith()
-    {
-        return [
-            'id' => $this->chat->id,
-            'sender' => $this->chat->sender,
-            'message' => $this->chat->message,
-            'created_at' => $this->chat->created_at->toDateTimeString(),
-        ];
+        return new PrivateChannel('chat.' . $this->message->receiver_id);
     }
 }

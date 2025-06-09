@@ -12,6 +12,6 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 
-Broadcast::channel('chat.{userId}', function ($user, $userId) {
-    return (int) $user->id === (int) $userId;
+Broadcast::channel('chat.{receiverId}', function ($user, $receiverId) {
+    return $user->id === (int) $receiverId;
 });

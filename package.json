@@ -19,6 +19,7 @@
         "vite": "^6.2.4"
     },
     "dependencies": {
+        "@pusher/push-notifications-web": "^1.1.0",
         "laravel-echo": "^2.1.5",
         "pusher-js": "^8.4.0"
     }

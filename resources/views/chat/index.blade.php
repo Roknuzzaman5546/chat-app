@@ -1,7 +1,6 @@
 @extends('layouts.app')
-
-@section('content')
-<div class="container mx-auto p-4" x-data="chatApp({{ auth()->user()->id }})" x-init="init">
+<h2>THis is sojib</h2>
+<div class="container mx-auto p-4">
     <div class="grid grid-cols-3 gap-4 h-[600px]">
         <!-- Sidebar -->
         <div class="border p-4 overflow-y-auto">
@@ -56,14 +55,12 @@
                   x-show="currentConversation">
                 <input type="text" class="flex-1 border p-2 rounded" x-model="newMessage"
                        placeholder="Type a message..." @keydown.enter="sendMessage">
-                <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Send</button>
+                <button class="px-4 py-2 bg-blue-600 text-black border rounded hover:bg-blue-700">Send</button>
             </form>
         </div>
     </div>
 </div>
-@endsection
 
-@push('scripts')
 <!-- AlpineJS + Axios + Pusher -->
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
@@ -93,6 +90,7 @@ function chatApp(userId) {
 
             axios.get(`/chat/search?q=${this.searchQuery}`)
                 .then(res => {
+                    console.log(res.data);
                     this.searchResults = res.data;
                 });
         },
@@ -160,4 +158,3 @@ function chatApp(userId) {
     }
 }
 </script>
-@endpush
